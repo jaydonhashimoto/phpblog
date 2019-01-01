@@ -10,7 +10,7 @@
         $server = "localhost";
         $username = "root";
         $password = "root";
-        $dbName = "blogapp";
+        $dbName = "phpblog";
 
         //establish connection
         $conn = new mysqli($server, $username, $password, $dbName);

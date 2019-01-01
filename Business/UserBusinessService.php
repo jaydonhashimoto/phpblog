@@ -1,5 +1,6 @@
 <?php 
      require_once '../Data/UserDataAccessService.php';
+     require_once '../Models/User.php';
     
     /**
      * @param $u
@@ -35,7 +36,29 @@
     function loginUser($u, $p)
     {
         //call findRegisteredUser from UserDataAccessService
-        return findRegisteredUser($u, $p);
+        //start session
+        session_start();
+
+        //set session user id and username
+        $tmp = array();
+        $tmp = findRegisteredUser($u, $p);
+        //if login creds are correct
+        if($tmp != false)
+        {
+            //set user id and username
+            $user = new User;
+            $user->setId($tmp[0]);
+            $user->setUsername($tmp[1]);
+
+            //return true
+            return true;
+        }
+        else
+        {
+            return false;;
+        }
+
+        
     }
     
 ?>

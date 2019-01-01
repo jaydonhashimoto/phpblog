@@ -12,7 +12,7 @@
          */
         public function getId()
         {
-            return $id;
+            return $_SESSION["id"];
         }
 
         /**
@@ -21,7 +21,7 @@
          */
         public function setId($i)
         {
-            $id = $i;
+            $_SESSION["id"] = $i;
         }
 
         /**
@@ -30,7 +30,7 @@
          */
         public function getUsername()
         {
-            return $username;
+            return $_SESSION["username"];
         }
 
         /**
@@ -39,7 +39,7 @@
          */
         public function setUsername($u)
         {
-            $username = $u;
+            $_SESSION["username"] = $u;
         }
 
         /**
@@ -48,7 +48,7 @@
          */
         public function getPassword()
         {
-            return $password;
+            return $_SESSION["password"];
         }
 
         /**
@@ -57,8 +57,8 @@
          */
         public function setPassword($p)
         {
-            $password = $p;
+            $_SESSION["password"] = $p;
         }
-}
+    }
     
 ?>

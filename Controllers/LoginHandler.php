@@ -6,12 +6,18 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    if(loginUser($username, $password))
+    $user = new User;
+    if($user->getId() != 0 || $user->getId() != NULL)
     {
-        echo "successful login";
+        echo $user->getId()." ". $user->getUsername();
+        //return index page
+        //header("Location: ../index.php");
+        //die();
     }
     else 
     {
-        echo "failed to login";
+        //return login page
+        header("Location: ../login.php");
+        die();
     }
 ?>

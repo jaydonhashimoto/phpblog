@@ -9,12 +9,12 @@
 </head>
 <body>
     <?include 'Layouts/DefaultNavbar.php'?>
-    <form action="Controllers/AddBlogHandler.php">
+    <form action="Controllers/AddBlogHandler.php" method="POST">
         <h1>Add Blog</h1>
         <p>Title</p>
-        <input type="text" name="title" minlength="1" maxlength="299"/>
+        <input type="text" name="title" minlength="1" maxlength="299" required/>
         <p>Body</p>
-        <textarea name="body" id="" cols="30" rows="10"  minlength="3" maxlength="499"></textarea>
+        <textarea name="body" id="" cols="30" rows="10"  minlength="3" maxlength="499" required></textarea>
         <input type="submit" name="submit" value="Submit">
     </form>
     <?include 'Layouts/DefaultFooter.php'?>

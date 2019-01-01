@@ -49,17 +49,21 @@
          try
          {
             //find user
-            $select = "SELECT USERNAME
+            $select = "SELECT *
             FROM users WHERE " . "USERNAME = '" . $username . "'";
             //set query results to variable
             $result = $conn->query($select);
             $row = $result->fetch_assoc();
-            //set user id
-            $user->setId($row["ID"]);
-            //set username
-            $user->setUsername($row["USERNAME"]);
-            //return user
-            return $user;
+            //if no user is found return true
+            //if user is found return false
+            if($result->num_rows == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
          }
          //catch exception
          catch(Exception $e)
@@ -79,7 +83,6 @@
     {
         //connect to db
         $conn = dbConnect();
-
         $user = new User;
         try
         {
@@ -89,11 +92,13 @@
            //set query results to variable
            $result = $conn->query($select);
            //if user found return true
-           echo $result->num_rows;
+           $row = $result->fetch_assoc();
            if($result->num_rows == 1)
            {
-                //set user info
-                $user = findUser($u);
+               //set user attribuates
+                $user = array();
+                $user[0] = $row["ID"];
+                $user[1]= $row["USERNAME"];
                 return true;
            }
            else

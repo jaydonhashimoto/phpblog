@@ -6,9 +6,9 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $duplicateUser = getUser($username);
+    $isDuplicateUser = getUser($username);
     //if user is not found, add user
-    if($duplicateUser->getUsername() == NULL || $duplicateUser->getUsername() == "")
+    if($isDuplicateUser == false)
     {
         addUser($username, $password);
         //return login page
