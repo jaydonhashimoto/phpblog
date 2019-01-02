@@ -1,6 +1,6 @@
 <?php 
-     require_once '../Data/UserDataAccessService.php';
-     require_once '../Models/User.php';
+     require 'UserDataAccessService.php';
+     require 'User.php';
     
     /**
      * @param $u
@@ -46,9 +46,9 @@
         if($tmp != false)
         {
             //set user id and username
-            $user = new User;
-            $user->setId($tmp[0]);
-            $user->setUsername($tmp[1]);
+            //session_start();
+            setId($tmp[0]);
+            setUsername($tmp[1]);
 
             //return true
             return true;

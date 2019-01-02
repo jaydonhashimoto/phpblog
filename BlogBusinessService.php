@@ -1,6 +1,6 @@
 <?php
-     require_once '../Data/BlogDataAccessService.php';
-
+    require 'BlogDataAccessService.php';
+     
     /**
      * This function calls createBlog
      * in BlogDataAccessService
@@ -21,6 +21,15 @@
      */
     function getAllBlogs()
     {
-        return findAllBlogs();
+        //if blogs are found return them
+        $blogs =  findAllBlogs();
+        if(isset($blogs))
+        {
+            return findAllBlogs();
+        }
+        else
+        {
+            echo "no blogs found (add error page later)";
+        }
     }
 ?>

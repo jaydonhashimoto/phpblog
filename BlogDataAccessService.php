@@ -1,6 +1,7 @@
 <?php
-    require_once '../Data/UserDataAccessService.php';
-    require_once '../Models/Blog.php';
+//echo getcwd();
+
+    require_once 'DBConnection.php';
 
     /**
      * This function inserts a blog into blog table
@@ -42,7 +43,6 @@
         //connect to db
         $conn = dbConnect();
 
-        $blog = new Blog;
         try
          {
             //find all blogs

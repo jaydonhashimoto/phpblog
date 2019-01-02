@@ -1,6 +1,5 @@
 <?php 
-    require_once '../Business/UserBusinessService.php';
-    require_once '../Models/User.php'; 
+    require 'UserBusinessService.php';
     
     //get user info from form
     $username = $_POST["username"];
@@ -12,18 +11,15 @@
     {
         addUser($username, $password);
         //return login page
-        header("Location: ../login.php");
+        header("Location: login.php");
         die();
         
     } 
     else 
     {
-   
         //return login page
         //include "../register.php";
-        header("Location: ../register.php", $message);
+        header("Location: register.php");
         die();
-        
     }
-    
 ?>

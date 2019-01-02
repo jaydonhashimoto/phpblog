@@ -1,6 +1,5 @@
 <?php 
-     require_once '../Data/DBConnection.php';
-     require_once '../Models/User.php';
+     require 'DBConnection.php';
 
     /**
      * @param $username
@@ -45,7 +44,6 @@
          //connect to db
          $conn = dbConnect();
 
-         $user = new User;
          try
          {
             //find user
@@ -83,7 +81,6 @@
     {
         //connect to db
         $conn = dbConnect();
-        $user = new User;
         try
         {
            //find user
@@ -99,7 +96,7 @@
                 $user = array();
                 $user[0] = $row["ID"];
                 $user[1]= $row["USERNAME"];
-                return true;
+                return $user;
            }
            else
            {
