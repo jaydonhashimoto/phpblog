@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Resources/main.css"/>
 </head>
 <body>
-    <?include 'Layouts/DefaultNavbar.php'?>
+    <?php include 'Layouts/DefaultNavbar.php'?>
     <form action="Controllers/AddBlogHandler.php" method="POST">
         <h1>Add Blog</h1>
         <p>Title</p>
@@ -17,6 +17,6 @@
         <textarea name="body" id="" cols="30" rows="10"  minlength="3" maxlength="499" required></textarea>
         <input type="submit" name="submit" value="Submit">
     </form>
-    <?include 'Layouts/DefaultFooter.php'?>
+    <?php include 'Layouts/DefaultFooter.php'?>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Resources/main.css"/>
 </head>
 <body>
-    <?include 'Layouts/DefaultNavbar.php'?>
+    <?php include 'Layouts/DefaultNavbar.php'?>
     <form action="Controllers/RegisterHandler.php" method="POST" autocomplete="off">
     <h1>Register</h1>
         <p>Username</p>
@@ -19,6 +19,6 @@
         <br/>
         <input type="submit" name="register" value="Sign Up"/>
     </form>
-    <?include 'Layouts/DefaultFooter.php'?>
+    <?php include 'Layouts/DefaultFooter.php'?>
 </body>
 </html>

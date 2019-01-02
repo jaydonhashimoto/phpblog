@@ -9,7 +9,7 @@
     {
         $server = "localhost";
         $username = "root";
-        $password = "root";
+        $password = "";
         $dbName = "phpblog";
 
         //establish connection

@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <?include 'Layouts/DefaultNavbar.php'?>
+    <?php include 'Layouts/DefaultNavbar.php'?>
     <h1>home page :)</h1>
-    <?php echo "test";?>
-    <?include 'Layouts/DefaultFooter.php'?>
+    <?php echo "test hello";?>
+    <?php include 'Layouts/DefaultFooter.php'?>
 </body>
 
 </html>
