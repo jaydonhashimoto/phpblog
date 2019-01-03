@@ -42,7 +42,7 @@
 
          try
          {
-            //insert user and password into db
+            //find if user exists
             $handle = $link->prepare("SELECT * FROM users WHERE USERNAME=?");
             $handle->bindValue(1, $username);
 

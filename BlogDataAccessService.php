@@ -1,6 +1,4 @@
 <?php
-//echo getcwd();
-
     require_once 'DBConnection.php';
 
     /**
@@ -11,26 +9,24 @@
     function createBlog($t, $b, $uId)
     {
         //connect to db
-        $conn = dbConnect();
+        $link = dbConnect();
 
         try
         {
             //this stmt inserts blog into db
-            $insert = "INSERT INTO blogs (BLOG_TITLE, BLOG_BODY, USER_ID) 
-                        VALUES ('" . $t . "' , '" . $b . "' , '" . $uId . "')";
-
-             //query statement
-             $result = $conn->query($insert);
+             //insert user and password into db
+             $handle = $link->prepare("INSERT INTO blogs (BLOG_TITLE, BLOG_BODY, USER_ID) VALUES (?,?,?)");
+             $handle->bindValue(1, $t);
+             $handle->bindValue(2, $b);             
+             $handle->bindValue(3, $uId);
+ 
+             //execute statement
+             $handle->execute();
         }
         //catch exception
-        catch(Exception $e)
+        catch(\PDOException $e)
         {
             echo 'Message: ' .$e->getMessage();
-        }
-        finally
-        {
-            //close db connection
-            $conn->close();
         }
     }
 
@@ -41,22 +37,25 @@
     function findAllBlogs()
     {
         //connect to db
-        $conn = dbConnect();
+        $link = dbConnect();
 
         try
          {
             //find all blogs
-            $select = "SELECT * FROM blogs";
-            //set query results to variable
-            $result = $conn->query($select);
-            $row = $result->fetch_assoc();
+            $handle = $link->prepare("SELECT * FROM blogs");
 
-            //create a 2d array of blogs
+            //execute statement
+            $handle->execute();
+
+            //gets all rows returned
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+
+            //set blogs to a 2D array
             $blog = array();
             $index = 0;
-            while($row = $result->fetch_assoc())
+            foreach($result as $row)
             {
-                $blog[$index] = array($row["ID"], $row["BLOG_TITLE"], $row["BLOG_BODY"], $row["USER_ID"]);
+                $blog[$index] = array($row->ID, $row->BLOG_TITLE, $row->BLOG_BODY, $row->USER_ID);
                 ++$index;
             }
             
@@ -64,14 +63,9 @@
             return $blog;
          }
          //catch exception
-         catch(Exception $e)
+         catch(\PDOException $e)
          {
             echo 'Message: ' .$e->getMessage();
-         }
-         finally
-         {
-            //close db connection
-            $conn->close();
          }
     }
 
@@ -84,35 +78,35 @@
     function findBlogById($bId)
     {
         //connect to db
-        $conn = dbConnect();
+        $link = dbConnect();
 
         try
          {
             //find blog by id
-            $select = "SELECT * FROM blogs WHERE " . "ID = '" . $bId . "'";
-            //set query results to variable
-            $result = $conn->query($select);
-            $row = $result->fetch_assoc();
+           //find all blogs
+           $handle = $link->prepare("SELECT * FROM blogs WHERE ID=?");
+           $handle->bindValue(1, $bId);
+
+           //execute statement
+           $handle->execute();
+
+           //gets all rows returned
+           $result = $handle->fetchAll(\PDO::FETCH_OBJ);
 
             //create an array with blog attributes
             $blog = array();
-            $blog[0] = $row["ID"];   
-            $blog[1] = $row["BLOG_TITLE"];
-            $blog[2] = $row["BLOG_BODY"];
-            $blog[3] = $row["USER_ID"];
+            $blog[0] = $row->ID;   
+            $blog[1] = $row->BLOG_TITLE;
+            $blog[2] = $row->BLOG_BODY;
+            $blog[3] = $row->USER_ID;
 
             //return array of blogs
             return $blog;
          }
          //catch exception
-         catch(Exception $e)
+         catch(\PDOException $e)
          {
             echo 'Message: ' .$e->getMessage();
-         }
-         finally
-         {
-            //close db connection
-            $conn->close();
          }
     }
 ?>
