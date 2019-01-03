@@ -74,4 +74,45 @@
             $conn->close();
          }
     }
+
+    /**
+     * This function gets a blog 
+     * by its id
+     * @param $bId
+     * @return $blog[]
+     */
+    function findBlogById($bId)
+    {
+        //connect to db
+        $conn = dbConnect();
+
+        try
+         {
+            //find blog by id
+            $select = "SELECT * FROM blogs WHERE " . "ID = '" . $bId . "'";
+            //set query results to variable
+            $result = $conn->query($select);
+            $row = $result->fetch_assoc();
+
+            //create an array with blog attributes
+            $blog = array();
+            $blog[0] = $row["ID"];   
+            $blog[1] = $row["BLOG_TITLE"];
+            $blog[2] = $row["BLOG_BODY"];
+            $blog[3] = $row["USER_ID"];
+
+            //return array of blogs
+            return $blog;
+         }
+         //catch exception
+         catch(Exception $e)
+         {
+            echo 'Message: ' .$e->getMessage();
+         }
+         finally
+         {
+            //close db connection
+            $conn->close();
+         }
+    }
 ?>

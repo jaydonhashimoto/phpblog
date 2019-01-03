@@ -7,21 +7,20 @@
      */
     function dbConnect()
     {
-        $server = "localhost";
-        $username = "root";
-        $password = "";
-        $dbName = "phpblog";
 
         //establish connection
-        $conn = new mysqli($server, $username, $password, $dbName);
-
-        //if connection failed, echo error
-        if($conn->connect_error)
-        {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        //set pdo option
+        // \PDO::ATTR_ERRMODE enables exceptions for errors.
+        // \PDO::ATTR_PERSISTENT disables persistent connections
+        $link = new \PDO('mysql:host=localhost;dbname=phpblog;charset=utf8mb4',
+                        'root', '',
+                        array(
+                            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                            \PDO::ATTR_PERSISTENT => false
+                            )
+                        );
 
         //return connection
-        return $conn;
+        return $link;
     }
 ?>

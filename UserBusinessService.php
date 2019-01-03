@@ -31,34 +31,33 @@
      * This method calls findRegisteredUser
      * @param $u
      * @param $p
-     * @return findRegisterUser()
+     * @return findRegisteredUser()
      */
     function loginUser($u, $p)
     {
         //call findRegisteredUser from UserDataAccessService
-        //start session
-        session_start();
-
         //set session user id and username
-        $tmp = array();
+        //$tmp = array();
         $tmp = findRegisteredUser($u, $p);
+        error_log($tmp[1],0);
         //if login creds are correct
-        if($tmp != false)
+        if($tmp === false)
         {
+            return false;
+        }
+        else if($tmp !== false)
+        {
+            //start session
+            session_start();
+
             //set user id and username
-            //session_start();
+            echo $tmp[0]." ".$tmp[1];
             setId($tmp[0]);
             setUsername($tmp[1]);
 
             //return true
             return true;
         }
-        else
-        {
-            return false;;
-        }
-
-        
     }
     
 ?>

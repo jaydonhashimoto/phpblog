@@ -32,4 +32,15 @@
             echo "no blogs found (add error page later)";
         }
     }
+
+    /**
+     * This function calls findBlogById
+     * in BlogDataAccessService
+     * @param $bId
+     * @return $blog[]
+     */
+    function getBlogById($bId)
+    {
+        return findBlogById($bId);
+    }
 ?>
