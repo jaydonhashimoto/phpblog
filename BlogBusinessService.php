@@ -43,4 +43,26 @@
     {
         return findBlogById($bId);
     }
+
+    /**
+     * This function calls updateBlog
+     * in BlogDataAccessService
+     * @param $t
+     * @param $b
+     * @param $bId
+     */
+    function renewBlog($t, $b, $bId)
+    {
+        updateBlog($t, $b, $bId);
+    }
+
+    /**
+     * This function calls deleteBlogById
+     * in BlogDataAccessService
+     * @param $bId
+     */
+    function removeBlogById($bId)
+    {
+        return deleteBlogById($bId);
+    }
 ?>

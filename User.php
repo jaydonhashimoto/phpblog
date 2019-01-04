@@ -5,7 +5,15 @@
      */
     function getId()
     {
-        return $_SESSION["id"];
+        $id = $_SESSION["id"];
+        if(isset($id))
+        {
+            return $id;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**

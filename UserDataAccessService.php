@@ -78,6 +78,54 @@
 
     /**
      * This method finds a user
+     * by their id
+     * @param $id
+     * @return $username
+     */
+    function findUserById($id)
+    {
+        //connect to db
+        $link = dbConnect();
+        try
+        {
+            //insert user and password into db
+            $handle = $link->prepare("SELECT * FROM users WHERE ID=?");
+            $handle->bindValue(1, $id);
+
+            //execute statement
+            $handle->execute();
+
+            //gets all rows returned
+            $result = $handle->fetchAll(\PDO::FETCH_OBJ);
+
+            //if no rows found, return false
+            $rowCount = 0;
+            foreach($result as $row)
+            {   
+                ++$rowCount;
+            }
+            if($rowCount == 0)
+            {
+                return false;
+            }
+
+            //set username
+            $username = "";
+            foreach($result as $row)
+            {
+                $username = $row->USERNAME;
+            }
+            return $username;
+        }
+        //catch exception
+        catch(\PDOException $e)
+        {
+           echo 'Message: ' .$e->getMessage();
+        }
+    }
+
+    /**
+     * This method finds a user
      * using username and password
      * @param $u
      * @param $p

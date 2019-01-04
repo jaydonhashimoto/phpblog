@@ -5,6 +5,7 @@
      * This function inserts a blog into blog table
      * @param $t
      * @param $b
+     * @param $uId
      */
     function createBlog($t, $b, $uId)
     {
@@ -41,8 +42,9 @@
 
         try
          {
-            //find all blogs
-            $handle = $link->prepare("SELECT * FROM blogs");
+            //find all blogs 
+            //inner join to get username from users table
+            $handle = $link->prepare("SELECT blogs.BLOG_ID, blogs.BLOG_TITLE, blogs.BLOG_BODY, blogs.USER_ID, users.USERNAME FROM blogs INNER JOIN users ON blogs.USER_ID = users.ID");
 
             //execute statement
             $handle->execute();
@@ -55,7 +57,7 @@
             $index = 0;
             foreach($result as $row)
             {
-                $blog[$index] = array($row->ID, $row->BLOG_TITLE, $row->BLOG_BODY, $row->USER_ID);
+                $blog[$index] = array($row->BLOG_ID, $row->BLOG_TITLE, $row->BLOG_BODY, $row->USER_ID, $row->USERNAME);
                 ++$index;
             }
             
@@ -84,7 +86,7 @@
          {
             //find blog by id
            //find all blogs
-           $handle = $link->prepare("SELECT * FROM blogs WHERE ID=?");
+           $handle = $link->prepare("SELECT blogs.BLOG_ID, blogs.BLOG_TITLE, blogs.BLOG_BODY, blogs.USER_ID, users.USERNAME FROM blogs INNER JOIN users ON blogs.USER_ID = users.ID WHERE BLOG_ID=?");
            $handle->bindValue(1, $bId);
 
            //execute statement
@@ -95,13 +97,74 @@
 
             //create an array with blog attributes
             $blog = array();
-            $blog[0] = $row->ID;   
-            $blog[1] = $row->BLOG_TITLE;
-            $blog[2] = $row->BLOG_BODY;
-            $blog[3] = $row->USER_ID;
+            foreach($result as $row)
+            {
+                $blog[0] = $row->BLOG_ID;   
+                $blog[1] = $row->BLOG_TITLE;
+                $blog[2] = $row->BLOG_BODY;
+                $blog[3] = $row->USER_ID;
+                $blog[4] = $row->USERNAME;
+            }
 
             //return array of blogs
             return $blog;
+         }
+         //catch exception
+         catch(\PDOException $e)
+         {
+            echo 'Message: ' .$e->getMessage();
+         }
+    }
+
+    /**
+     * This function inserts a blog into blog table
+     * @param $t
+     * @param $b
+     * @param $bId
+     */
+    function updateBlog($t, $b, $bId)
+    {
+        //connect to db
+        $link = dbConnect();
+
+        try
+        {
+            //this stmt inserts blog into db
+             //insert user and password into db
+             $handle = $link->prepare("UPDATE blogs SET BLOG_TITLE=? BLOG_BODY=? WHERE BLOG_ID=?");
+             $handle->bindValue(1, $t);
+             $handle->bindValue(2, $b);             
+             $handle->bindValue(3, $bId);
+ 
+             //execute statement
+             $handle->execute();
+        }
+        //catch exception
+        catch(\PDOException $e)
+        {
+            echo 'Message: ' .$e->getMessage();
+        }
+    }
+
+    /**
+     * This function deletes a blog 
+     * by its id
+     * @param $bId
+     */
+    function deleteBlogById($bId)
+    {
+        //connect to db
+        $link = dbConnect();
+
+        try
+         {
+            //find blog by id
+           //find all blogs
+           $handle = $link->prepare("DELETE FROM blogs WHERE BLOG_ID=?");
+           $handle->bindValue(1, $bId);
+
+           //execute statement
+           $handle->execute();
          }
          //catch exception
          catch(\PDOException $e)

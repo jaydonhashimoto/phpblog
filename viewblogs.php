@@ -1,6 +1,13 @@
 <?php
     require_once 'BlogBusinessService.php';
     $blog = getAllBlogs();
+    /**
+     * [0] = blog id
+     * [1] = title
+     * [2] = body
+     * [3] = user id
+     * [4] = username
+     */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +23,7 @@
     <?php 
         for($x = 0; $x < count($blog); $x++)
         {
-            print("blog id = ".$blog[$x][0].": title: ".$blog[$x][1]." body: ".$blog[$x][2]." - user id = ".$blog[$x][3]." ");?> <br/> <?php
+            ?><a href="viewblog.php?blog=<?php echo $blog[$x][0]?>"><?php print($blog[$x][1]." by:".$blog[$x][4]);?></a> <br/> <?php
         }
     ?>
     <?php include 'DefaultFooter.php'?>
